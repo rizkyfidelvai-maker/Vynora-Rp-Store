@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vynora Roleplay - Store</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 400px;
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,255,150,0.15);
+}
+
+h2 {
+  color: #00ff9d;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+label {
+  margin-top: 12px;
+  display: block;
+  font-size: 14px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  background: #292929;
+  border: none;
+  border-radius: 6px;
+  color: white;
+}
+
+button {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #00ff9d;
+  color: black;
+  transition: .3s;
+}
+
+button:hover { background: #00c777; }
+
+.summary {
+  background: #111;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.notice {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+  opacity: 0.7;
+  color: #ffcc00;
+}
+
+.steps {
+  background: #111;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.steps b {
+  color: #00ff9d;
+}
+
+a.discord-link {
+  color:#00ff9d;
+  text-decoration:none;
+}
+a.discord-link:hover {
+  text-decoration:underline;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>VYNORA STORE</h2>
+  <p style="text-align:center;opacity:.7;font-size:13px">Bayar via channel Discord 
+    <b><a href="https://discord.com/channels/1351207991998812260/1446154013283193113" target="_blank" class="discord-link">#payment</a></b>
+  </p>
+
+  <!-- Form Data -->
+  <label>Nama Pemain</label>
+  <input type="text" id="username" placeholder="Contoh: Atreus / Xyra">
+
+  <label>ID Discord / Player ID</label>
+  <input type="text" id="userid" placeholder="Contoh: 142829192">
+
+  <!-- VIP Section -->
+  <label>Top-Up VIP</label>
+  <select id="vip" onchange="updateTotal()">
+    <option value="0">Tidak Pilih VIP</option>
+    <option value="25000">🟥 VIP Ranger L1 — Rp 25.000</option>
+    <option value="45000">🟥 VIP Ranger L2 — Rp 45.000</option>
+    <option value="70000">🟥 VIP Ranger L3 🔥 — Rp 70.000</option>
+  </select>
+
+  <!-- GTA SA Vehicle Section -->
+  <label style="margin-top:20px;">🚗 Mobil GTA SA</label>
+  <select id="vehicle" onchange="updateTotal()">
+    <option value="0">Tidak Pilih Kendaraan</option>
+    <option value="15000">ID 411 — Infernus — Rp 15.000</option>
+    <option value="13000">ID 451 — Turismo — Rp 13.000</option>
+    <option value="12000">ID 415 — Cheetah — Rp 12.000</option>
+    <option value="10000">ID 429 — Banshee — Rp 10.000</option>
+    <option value="7500">ID 562 — Elegy — Rp 7.500</option>
+    <option value="6000">ID 602 — Alpha — Rp 6.000</option>
+    <option value="5000">ID 496 — Blista Compact — Rp 5.000</option>
+  </select>
+
+  <!-- Total -->
+  <div class="summary">
+    <b>Total Pembayaran:</b>
+    <p id="total">Rp 0</p>
+  </div>
+
+  <!-- Transaction ID -->
+  <label>Transaction ID</label>
+  <input type="text" id="trx" readonly placeholder="Generate ID terlebih dahulu">
+
+  <button onclick="generateID()">Generate Transaction ID</button>
+  <button style="background:#333;color:#00ff9d" onclick="copyID()">Copy ID</button>
+
+  <div class="notice">
+    Setelah generate Transaction ID, kirim ke admin di Discord 
+    <b><a href="https://discord.com/channels/1351207991998812260/1446154013283193113" target="_blank" class="discord-link">#payment</a></b> untuk pembayaran.
+  </div>
+
+  <!-- Cara Pembayaran -->
+  <div class="steps">
+    <b>Cara Top-Up Lengkap:</b>
+    <ol>
+      <li>Pilih VIP atau Mobil GTA SA yang ingin dibeli.</li>
+      <li>Total harga akan otomatis muncul di <b>Total Pembayaran</b>.</li>
+      <li>Klik <b>Generate Transaction ID</b> untuk membuat ID unik.</li>
+      <li>Copy ID dengan tombol <b>Copy ID</b>.</li>
+      <li>Buka Discord dan masuk ke channel 
+        <b><a href="https://discord.com/channels/1351207991998812260/1446154013283193113" target="_blank" class="discord-link">#payment</a></b>.
+      </li>
+      <li>Kirimkan format berikut ke admin: <br>
+          <code>Nama Pemain: [Nama]</code><br>
+          <code>ID Discord: [ID]</code><br>
+          <code>Pilihan: [VIP/Mobil]</code><br>
+          <code>Total: [Rp XXXX]</code><br>
+          <code>Transaction ID: [VYN-XXXXXX]</code>
+      </li>
+      <li>Lakukan pembayaran via metode yang admin sediakan (Dana / OVO / ShopeePay / Bank).</li>
+      <li>Tunggu verifikasi dari admin (biasanya 1–10 menit).</li>
+      <li>Setelah diverifikasi, VIP atau Mobil akan diberikan ke akun kamu.</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+function updateTotal(){
+  let vip = Number(document.getElementById("vip").value);
+  let vehicle = Number(document.getElementById("vehicle").value);
+  document.getElementById("total").innerText = "Rp " + (vip + vehicle).toLocaleString();
+}
+
+function generateID(){
+  let id = Math.floor(Math.random()*900000)+100000;
+  document.getElementById("trx").value = "VYN-" + id;
+}
+
+function copyID(){
+  navigator.clipboard.writeText(document.getElementById("trx").value);
+  alert("Transaction ID Copied ✔\nSilahkan kirim ke admin di Discord #payment");
+}
+</script>
+
+</body>
+</html>
